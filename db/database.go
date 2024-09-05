@@ -10,7 +10,7 @@ import (
 var DB *gorm.DB // Global DB variable to store the connection
 
 func InitDB() {
-    dsn := "host=localhost username=postgres password=7356 dbname=todolist port=5432 sslmode=disable"
+    dsn := "host=localhost user=postgres password=7356 dbname=todolist port=5432 sslmode=disable"
     var err error
     DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{}) // Assign to global DB variable
 

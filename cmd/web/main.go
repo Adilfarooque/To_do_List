@@ -17,7 +17,7 @@ func main() {
 	db.InitDB()
 
 	r := gin.Default()
-	r.LoadHTMLFiles("tmpl/*.html")
+	r.LoadHTMLGlob("C:/Users/Adilf/go/src/github.com/Todolist/templates/*.html")
 
 	//Display th todo list
 	r.GET("/", func(c *gin.Context) {
@@ -59,7 +59,7 @@ func main() {
 	r.GET("/edit/:id", func(c *gin.Context) {
 		todoID, _ := strconv.Atoi(c.Param("id"))
 		var todo models.Todo
-
+		//Find the todo item by ID
 		if err := db.DB.First(&todo, todoID).Error; err == nil {
 			todo.Title = c.PostForm("title") //Update the title from input
 			db.DB.Save(&todo)
