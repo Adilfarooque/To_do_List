@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        form.iniline{
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Todo List</h1>
+
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="add new todo" required>
+        <button type="submit">Add Todo</button>
+    </form>
+
+    <ul>
+        {{range .todos}}
+        <li>
+            <!--Inline Edit form for each item-->
+            <form action="/edit/{{.ID}}" method="POST" class="iniline">
+                <input type="text" name="title" value="{{.Title}}" required>
+                <button type="submit">Edit</button>
+            </form>
+
+            <!--Toggle Done/Undone-->
+            <form action="/toggle/{{.ID}}" method="POST" class="iniline">
+                <button type="submit">{{if .Done}}Undo{{else}}Mark Done{{end}}</button>
+            </form>
+
+            <!--Delete Todo-->
+            <form action="/delete/{{.ID}}" method="POST" class="inline">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {{else}}
+        <li>No todos yet</li>
+        {{end}}
+        </ul>
+</body>
+</html>
